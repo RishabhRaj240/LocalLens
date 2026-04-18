@@ -52,18 +52,23 @@ export function Navbar() {
 
           {/* Desktop Nav */}
           <nav className="hidden md:flex items-center gap-8">
-            {navLinks.map((link) => (
-              <Link
-                key={link.name}
-                href={link.href}
-                className={cn(
-                  "text-sm font-medium transition-colors hover:text-brand-amber",
-                  isScrolled || !isHome ? "text-foreground/80" : "text-white/90"
-                )}
-              >
-                {link.name}
-              </Link>
-            ))}
+            {navLinks.map((link) => {
+              const isActive = pathname.startsWith(link.href);
+              return (
+                <Link
+                  key={link.name}
+                  href={link.href}
+                  className={cn(
+                    "text-sm transition-colors hover:text-brand-amber",
+                    isActive
+                      ? "font-bold text-brand-teal"
+                      : cn("font-medium", isScrolled || !isHome ? "text-foreground/80" : "text-white/90")
+                  )}
+                >
+                  {link.name}
+                </Link>
+              );
+            })}
           </nav>
 
           {/* Desktop Actions */}
@@ -118,16 +123,22 @@ export function Navbar() {
             className="fixed inset-0 z-40 bg-white pt-24 px-6 md:hidden flex flex-col gap-6"
           >
             <nav className="flex flex-col gap-6 text-xl font-heading">
-              {navLinks.map((link) => (
-                <Link
-                  key={link.name}
-                  href={link.href}
-                  onClick={() => setIsMobileMenuOpen(false)}
-                  className="text-foreground hover:text-brand-amber transition-colors"
-                >
-                  {link.name}
-                </Link>
-              ))}
+              {navLinks.map((link) => {
+                const isActive = pathname.startsWith(link.href);
+                return (
+                  <Link
+                    key={link.name}
+                    href={link.href}
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className={cn(
+                      "transition-colors hover:text-brand-amber",
+                      isActive ? "font-bold text-brand-teal" : "font-medium text-foreground"
+                    )}
+                  >
+                    {link.name}
+                  </Link>
+                );
+              })}
             </nav>
             <div className="flex items-center gap-6 mt-8 pt-8 border-t border-border">
               <button className="text-foreground flex flex-col items-center gap-2 text-sm hover:text-brand-amber">

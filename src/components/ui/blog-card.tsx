@@ -33,7 +33,7 @@ export function BlogCard({
   
   if (variant === "featured") {
     return (
-      <Link href={`/blog/${id}`} className={cn("block group relative rounded-2xl overflow-hidden", className)}>
+      <Link href={`/blog/${id}`} target="_blank" rel="noopener noreferrer" className={cn("block group relative rounded-2xl overflow-hidden", className)}>
         <div className="absolute inset-0 bg-black/40 group-hover:bg-black/50 transition-colors z-10" />
         <div className="relative aspect-[16/9] w-full md:aspect-auto md:h-[500px]">
           <motion.img 
@@ -69,7 +69,7 @@ export function BlogCard({
 
   if (variant === "horizontal") {
     return (
-      <Link href={`/blog/${id}`} className={cn("group flex flex-col sm:flex-row gap-6", className)}>
+      <Link href={`/blog/${id}`} target="_blank" rel="noopener noreferrer" className={cn("group flex flex-col sm:flex-row gap-6", className)}>
         <div className="relative w-full sm:w-1/3 aspect-[4/3] rounded-xl overflow-hidden shadow-sm shrink-0">
           <motion.img 
             transition={{ duration: 0.5 }}
@@ -102,7 +102,7 @@ export function BlogCard({
 
   // Vertical variant
   return (
-    <Link href={`/blog/${id}`} className={cn("group flex flex-col", className)}>
+    <Link href={`/blog/${id}`} target="_blank" rel="noopener noreferrer" className={cn("group flex flex-col", className)}>
       <div className="relative w-full aspect-[4/3] rounded-xl overflow-hidden shadow-sm mb-4">
         <motion.img 
           transition={{ duration: 0.5 }}

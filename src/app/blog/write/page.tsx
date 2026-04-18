@@ -45,6 +45,23 @@ export default function WriteBlogPage() {
     }
 
     try {
+      // Ensure the user has a profile to satisfy the author_id foreign key constraint
+      const { data: profile } = await supabase.from('profiles').select('id').eq('id', session.user.id).single();
+      
+      if (!profile) {
+        const defaultUsername = session.user.email ? `${session.user.email.split('@')[0]}_${session.user.id.substring(0,5)}` : `user_${session.user.id.substring(0,8)}`;
+        const { error: profileError } = await supabase.from('profiles').insert({
+          id: session.user.id,
+          username: defaultUsername,
+          full_name: "Local Guide",
+        });
+        
+        if (profileError) {
+           console.error("Profile creation error:", profileError);
+           throw new Error("Could not create user profile required for publishing.");
+        }
+      }
+
       // Insert logic pointing to the schema we designed
       const { error } = await supabase.from('blogs').insert({
         title,
@@ -60,9 +77,10 @@ export default function WriteBlogPage() {
       setMessage({ type: 'success', text: "Blog post published successfully!" });
       setTimeout(() => router.push('/blog'), 2000);
 
-    } catch (error: unknown) {
+    } catch (error: any) {
       console.error(error);
-      setMessage({ type: 'error', text: error instanceof Error ? error.message : "Failed to publish blog." });
+      const errMessage = error?.message || (error instanceof Error ? error.message : "Failed to publish blog.");
+      setMessage({ type: 'error', text: errMessage });
     } finally {
       setIsSubmitting(false);
     }
@@ -123,14 +141,29 @@ export default function WriteBlogPage() {
           </div>
 
           <div>
-            <label className="block text-sm font-bold text-muted-foreground uppercase tracking-wider mb-2">Cover Image URL</label>
-            <input 
-              type="url" 
-              value={imageUrl}
-              onChange={(e) => setImageUrl(e.target.value)}
-              placeholder="https://images.unsplash.com/photo-..."
-              className="w-full bg-muted/30 border border-border rounded-xl px-4 py-3 outline-none focus:border-brand-teal transition-colors text-foreground"
-            />
+            <label className="block text-sm font-bold text-muted-foreground uppercase tracking-wider mb-2">Cover Image</label>
+            <div className="flex flex-col gap-4">
+              <input 
+                type="file" 
+                accept="image/*"
+                onChange={(e) => {
+                  const file = e.target.files?.[0];
+                  if (file) {
+                    const reader = new FileReader();
+                    reader.onloadend = () => {
+                      setImageUrl(reader.result as string);
+                    };
+                    reader.readAsDataURL(file);
+                  }
+                }}
+                className="w-full bg-muted/30 border border-border rounded-xl px-4 py-3 outline-none focus:border-brand-teal transition-colors text-foreground file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-brand-teal/10 file:text-brand-teal hover:file:bg-brand-teal/20"
+              />
+              {imageUrl && (
+                <div className="relative aspect-video w-full max-w-md rounded-xl overflow-hidden border border-border mt-2 shadow-sm">
+                  <img src={imageUrl} alt="Cover Preview" className="w-full h-full object-cover" />
+                </div>
+              )}
+            </div>
           </div>
 
           <div>
