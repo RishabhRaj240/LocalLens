@@ -1,5 +1,3 @@
-import { notFound } from "next/navigation";
-import Image from "next/image";
 
 interface BlogPostPageProps {
   params: {
@@ -40,17 +38,17 @@ export default function BlogPostPage({ params }: BlogPostPageProps) {
 
         <div className="prose prose-lg md:prose-xl max-w-none text-foreground/80 font-serif leading-relaxed">
           <p className="first-letter:text-6xl first-letter:font-bold first-letter:text-brand-amber first-letter:mr-3 first-letter:float-left">
-            Wandering through the narrow cobbled streets, you can't help but feel a sense of timelessness. Every corner reveals a new story, a forgotten piece of history waiting to be discovered by intrepid travelers willing to look beyond the obvious tourist traps.
+            Wandering through the narrow cobbled streets, you can&apos;t help but feel a sense of timelessness. Every corner reveals a new story, a forgotten piece of history waiting to be discovered by intrepid travelers willing to look beyond the obvious tourist traps.
           </p>
           <p>
             The local culture is deeply woven into the fabric of daily life here. From the morning banter at the bustling food markets to the slow, deliberate pace of the afternoon siesta, everything happens for a reason and has a rhythm of its own.
           </p>
           <h2>A Journey of Discovery</h2>
           <p>
-            As we delve deeper into this region, we're finding that the true essence of a place lies not in its monuments, but in its people. Conversing with locals, tasting authentic, home-cooked meals, and participating in age-old traditions – these are the moments that transform a simple trip into a profound journey.
+            As we delve deeper into this region, we&apos;re finding that the true essence of a place lies not in its monuments, but in its people. Conversing with locals, tasting authentic, home-cooked meals, and participating in age-old traditions – these are the moments that transform a simple trip into a profound journey.
           </p>
           <blockquote>
-            "To travel is to discover that everyone is wrong about other countries." - Aldous Huxley
+            &quot;To travel is to discover that everyone is wrong about other countries.&quot; - Aldous Huxley
           </blockquote>
           <p>
             Remember to tread lightly, respect local customs, and always keep an open mind. The world is full of wonders for those who take the time to see.

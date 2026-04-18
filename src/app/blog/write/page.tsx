@@ -60,9 +60,9 @@ export default function WriteBlogPage() {
       setMessage({ type: 'success', text: "Blog post published successfully!" });
       setTimeout(() => router.push('/blog'), 2000);
 
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error(error);
-      setMessage({ type: 'error', text: error.message || "Failed to publish blog." });
+      setMessage({ type: 'error', text: error instanceof Error ? error.message : "Failed to publish blog." });
     } finally {
       setIsSubmitting(false);
     }

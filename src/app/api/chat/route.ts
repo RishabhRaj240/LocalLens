@@ -17,8 +17,8 @@ export async function POST(req: Request) {
 
     // Format history for Gemini chat format (ignore the very first default prompt if needed, but we can pass it securely)
     const formattedHistory = history
-      .filter((msg: any) => msg.role !== 'system') // Filter out any internal system hints
-      .map((msg: any) => ({
+      .filter((msg: { role: string; content: string }) => msg.role !== 'system') // Filter out any internal system hints
+      .map((msg: { role: string; content: string }) => ({
         role: msg.role === 'bot' ? 'model' : 'user',
         parts: [{ text: msg.content }],
     }));
@@ -36,10 +36,10 @@ export async function POST(req: Request) {
 
     return NextResponse.json({ reply: response });
 
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error("Chat API Error:", error);
     return NextResponse.json(
-      { error: "Failed to generate AI response", details: error.message },
+      { error: "Failed to generate AI response", details: error instanceof Error ? error.message : "Unknown error" },
       { status: 500 }
     );
   }

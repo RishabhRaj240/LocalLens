@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, useScroll, useTransform } from "framer-motion";
-import { Search, MapPin, Compass, Users, Globe2, ArrowRight } from "lucide-react";
+import { Search, MapPin, Compass, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { GuideCard } from "@/components/ui/guide-card";
 import { BlogCard } from "@/components/ui/blog-card";
@@ -177,7 +177,7 @@ export default function LandingPage() {
         
         <div className="w-full overflow-x-auto pb-8 hide-scrollbar cursor-grab active:cursor-grabbing">
           <div className="flex gap-6 px-6 md:px-12 min-w-max">
-            {CATEGORIES.map((cat, i) => (
+            {CATEGORIES.map((cat) => (
               <motion.div 
                 key={cat.name}
                 whileHover={{ y: -8 }}

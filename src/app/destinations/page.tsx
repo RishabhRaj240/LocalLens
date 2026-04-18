@@ -6,7 +6,7 @@ export default function DestinationsPage() {
       <MapPin className="w-16 h-16 text-brand-teal mb-6" />
       <h1 className="text-4xl font-heading font-bold text-foreground mb-4">Explore Destinations</h1>
       <p className="text-lg text-muted-foreground max-w-md mx-auto">
-        We're currently curating the best local experiences across the globe. Check back soon for new destinations.
+        We&apos;re currently curating the best local experiences across the globe. Check back soon for new destinations.
       </p>
     </div>
   );
