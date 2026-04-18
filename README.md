@@ -2,8 +2,7 @@
 
 LocalLens is a modern, full-stack platform designed to bridge the gap between local businesses and their communities. Built with a focus on performance and seamless user experience, it serves as a hyper-local discovery engine.
 
-![LocalLens Preview](<img width="1892" height="853" alt="Screenshot 2026-04-18 142717" src="https://github.com/user-attachments/assets/59461436-b4eb-4e4d-ae5e-f65376f6d5ee" />
-) ## 🚀 Tech Stack
+🚀 Tech Stack
 
 - **Framework:** [Next.js 14+](https://nextjs.org/) (App Router)
 - **Language:** [TypeScript](https://www.typescriptlang.org/)
