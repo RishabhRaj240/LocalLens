@@ -6,9 +6,19 @@ import { createClient } from "@/lib/supabase/client";
 import Link from "next/link";
 import { PenTool } from "lucide-react";
 
+interface BlogPost {
+  id: string;
+  title: string;
+  excerpt: string;
+  imageUrl: string;
+  category: string;
+  author: string;
+  date: string;
+}
+
 export default function BlogPage() {
-  const [posts, setPosts] = useState<any[]>([]);
-  const [filteredPosts, setFilteredPosts] = useState<any[]>([]);
+  const [posts, setPosts] = useState<BlogPost[]>([]);
+  const [filteredPosts, setFilteredPosts] = useState<BlogPost[]>([]);
   const [categories, setCategories] = useState<string[]>(["All Stories"]);
   const [activeCategory, setActiveCategory] = useState("All Stories");
   const [isLoading, setIsLoading] = useState(true);
@@ -60,12 +70,7 @@ export default function BlogPage() {
     }
   }, [activeCategory, posts]);
 
-  // For rendering layouts, we define variants based on index
-  const getVariant = (index: number) => {
-    if (index === 0) return "featured";
-    if (index === 1 || index === 2) return "vertical";
-    return "horizontal";
-  };
+
 
   return (
     <div className="min-h-screen bg-brand-cream/50 pt-24 pb-20">
@@ -79,7 +84,7 @@ export default function BlogPage() {
             
             {/* Category Pills */}
             <div className="flex items-center gap-3 overflow-x-auto pb-4 hide-scrollbar pt-2">
-              {categories.map((cat, i) => (
+              {categories.map((cat) => (
                 <button 
                   key={cat}
                   onClick={() => setActiveCategory(cat)}

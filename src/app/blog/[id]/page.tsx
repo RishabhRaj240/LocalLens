@@ -12,9 +12,23 @@ interface BlogPostPageProps {
   };
 }
 
+interface BlogData {
+  id: string;
+  title: string;
+  category: string;
+  created_at: string;
+  image_url?: string;
+  content: string;
+  author_id: string;
+  profiles?: {
+    full_name?: string;
+    username?: string;
+  };
+}
+
 export default function BlogPostPage({ params }: BlogPostPageProps) {
   const { id } = params;
-  const [blog, setBlog] = useState<any>(null);
+  const [blog, setBlog] = useState<BlogData | null>(null);
   const [loading, setLoading] = useState(true);
   const [currentUserId, setCurrentUserId] = useState<string | null>(null);
   const [isDeleting, setIsDeleting] = useState(false);
@@ -113,6 +127,7 @@ export default function BlogPostPage({ params }: BlogPostPageProps) {
         </header>
 
         <div className="relative aspect-video w-full rounded-2xl overflow-hidden mb-12 shadow-lg">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
           <img 
             src={blog.image_url || "https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?auto=format&fit=crop&q=80&w=1600"}
             alt={blog.title}

@@ -77,9 +77,9 @@ export default function WriteBlogPage() {
       setMessage({ type: 'success', text: "Blog post published successfully!" });
       setTimeout(() => router.push('/blog'), 2000);
 
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error(error);
-      const errMessage = error?.message || (error instanceof Error ? error.message : "Failed to publish blog.");
+      const errMessage = error instanceof Error ? error.message : (error as {message?: string})?.message || "Failed to publish blog.";
       setMessage({ type: 'error', text: errMessage });
     } finally {
       setIsSubmitting(false);
@@ -160,6 +160,7 @@ export default function WriteBlogPage() {
               />
               {imageUrl && (
                 <div className="relative aspect-video w-full max-w-md rounded-xl overflow-hidden border border-border mt-2 shadow-sm">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img src={imageUrl} alt="Cover Preview" className="w-full h-full object-cover" />
                 </div>
               )}
